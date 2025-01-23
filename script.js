@@ -1,55 +1,16 @@
-// Место для первой задачи
-function firstTask() {
-  for( let i = 5; i<=10; i++){
-    console.log(i);
+const lines = 5;
+let result = '';
+// Проверяется именно переменная result, формируйте строку в ней
+for ( let i = 1; i < lines; i++){
+  for ( let j = 0; j < lines - i; j++){
+    result += ' ';
   }
-  
-  
-}
-
-// Место для второй задачи
-function secondTask() {
-  for( let i = 20; i === 10; i--){
-    if (i === 13) break;
-    console.log(i);
+  for (let j = 0; j < i; j++){
+    result += '*';  
   }
-  
-  
-}
-
-// Место для третьей задачи
-function thirdTask() {
-  for( let i = 1; i<=10; i++){
-    if ( !(i % 2) )   console.log(i);
-  }  
-  
-}
-
-// Место для четвертой задачи
-function fourthTask() {
-  
-  let i =2;
-
-  while (i<=16) {
-    if (i % 2 === 0) {
-      i++;
-      continue;
-    } else {
-      console.log(i);
-      i++;
-    }
-  }  
-  
-}
-
-// Место для пятой задачи
-
-function fifthTask() {
-  const arrayOfNumbers = [];
-
-  for( let i = 5; i <= 10; i++){
-    arrayOfNumbers[i] = i;
+  for (let k = 1 ; k < i; k++){
+    result += '*';  
   }
-  
-  return arrayOfNumbers;
+  result += '\n';
 }
+console.log(result);
