@@ -1,49 +1,97 @@
-/* Задания на урок:
+window.addEventListener( 'DOMContentLoaded', ()=>{
 
-1) Удалить все рекламные блоки со страницы (правая часть сайта)
+  const tabs = document.querySelectorAll('.tabheader__item'),
+        tabsContent = document.querySelectorAll('.tabcontent'),
+        tabsParent = document.querySelector('.tabheader__items');
 
-2) Изменить жанр фильма, поменять "комедия" на "драма"
+        hideAll = () => {
+          tabs.forEach( item => {
+            item.classList.remove('tabheader__item_active');
+          })
+          tabsContent.forEach(item => {
+            item.classList.add('hide');
+            item.classList.remove('show', 'fade');
+          })
+        }
+        showTab = (i = 0) => {
+          tabsContent[i].classList.add('show', 'fade');
+          tabsContent[i].classList.remove('hide');
+          tabs[i].classList.add('tabheader__item_active');
+        }
+        
+        hideAll();
+        showTab();
 
-3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
-Реализовать только при помощи JS
+        tabsParent.addEventListener('click', (e)=>{
+            const target = e.target;
 
-4) Список фильмов на странице сформировать на основании данных из этого JS файла.
-Отсортировать их по алфавиту 
+            if(target && target.classList.contains('tabheader__item')){
+              tabs.forEach((item, i)=>{
+                if(target == item){
+                  hideAll();
+                  showTab(i);
+                }
+              })
+            }
 
-5) Добавить нумерацию выведенных фильмов */
+        })
 
-'use strict';
+        // Timer
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
 
-const adv = document.querySelectorAll('.promo__adv img'),
-poster = document.querySelector('.promo__bg'),
-genre = poster.querySelector('.promo__genre'),
-films = document.querySelector('.promo__interactive-list');
+        
+        const deadline = '03.03.2025'
 
-adv.forEach(item =>{
-    item.remove();
-})
+        addZero = (n) =>{
+          if (n>0 && n < 10) return `0${n}`
+          else return n
+        }
 
-genre.textContent = 'Драма';
-poster.style.backgroundImage = `url('../img/bg.jpg')`;
+        getTimeRemaining = (endtime) => {
+          const t = Date.parse(endtime) - Date.parse(new Date()),
+                days = Math.floor(t / (1000 * 60 * 60 * 24)),
+                hours = Math.floor(t / (1000 * 60 * 60) % 24),
+                minutes = Math.floor(t / (1000 * 60) % 60),
+                seconds = Math.floor((t / 1000) % 60);
 
-movieDB.movies.sort();
 
-films.innerHTML = '';
+          return{
+            total: t,
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+          }
+        }
+        SetClock = (selector, endtime) => {
+          const timer = document.querySelector(selector),
+                days = timer.querySelector('#days'),
+                hours = timer.querySelector('#hours'),
+                minutes = timer.querySelector('#minutes'),
+                seconds = timer.querySelector('#seconds'),
+                timeInterval = setInterval(updateClock, 1000);
 
-movieDB.movies.forEach((item, i) =>{
-    films.innerHTML += `
-    <li class="promo__interactive-item">${i+1} ${item}
-        <div class="delete"></div>
-    </li>
-    `
+                updateClock();
+
+                function updateClock() {
+                  const t = getTimeRemaining(endtime);
+
+                  days.innerHTML = addZero(t.days);
+                  hours.innerHTML = addZero(t.hours);
+                  minutes.innerHTML = addZero(t.minutes);
+                  seconds.innerHTML = addZero(t.seconds);
+
+                  if (t.total < 0){
+                    clearInterval(timeInterval);
+                  }
+                }
+        }
+        SetClock('.timer', deadline);
+
+
+
+
+
+
+
 })
