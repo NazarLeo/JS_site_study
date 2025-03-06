@@ -1,5 +1,3 @@
-Collecting workspace information# Food Delivery Study Project
-
 This project is a study project to learn and practice JavaScript. It simulates a food delivery service website with various features such as tabs, modals, sliders, forms, and more.
 
 ## Features
