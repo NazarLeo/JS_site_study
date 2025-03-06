@@ -6,8 +6,8 @@ function forms(formSelector, modalTimerId) {
 
   const message = {
     loading: "img/form/spinner.svg",
-    succes: "Спасибо! Скоро мы с вами свяжемся",
-    failure: "Что-то пошло не так...",
+    success: "Thank you! We will contact you soon",
+    failure: "Something went wrong...",
   };
 
   forms.forEach((item) => {
@@ -33,7 +33,7 @@ function forms(formSelector, modalTimerId) {
       postData("http://localhost:3000/requests", json)
         .then((data) => {
           console.log(data);
-          showThanksModal(message.succes);
+          showThanksModal(message.success);
           statusMessage.remove();
         })
         .catch(() => {
